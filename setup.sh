@@ -26,7 +26,10 @@ docker build -t ctf-web-base web-base
 # Create a docker user
 mkdir -p /home/ctf
 mkdir -p /home/ctf/static
+mkdir -p /home/ctf/.ssh
 chmod -R 775 /home/ctf
+cp ctf-public.pem /home/ctf/.ssh/id_rsa
+chmod 600 /home/ctf/.ssh/id_rsa
  
 useradd -M -U -s /bin/bash -G docker -d /home/ctf ctf
 
