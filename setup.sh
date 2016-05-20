@@ -8,7 +8,8 @@ fi
 
 # Install required packages
 apt-get update
-apt-get install -y docker gcc make
+apt-get install -y docker docker.io gcc make
+docker.io
 
 # Create the base static container
 docker build -t ctf-static-base web-base
@@ -23,10 +24,10 @@ docker build -t ctf-net-base net-base
 docker build -t ctf-web-base web-base
 
 # Create a docker user
-mkdir /home/ctf
-mkdir /home/ctf/static
+mkdir -p /home/ctf
+mkdir -p /home/ctf/static
 chmod -R 775 /home/ctf
+ 
+useradd -M -U -s /bin/bash -G docker -d /home/ctf ctf
 
-useradd -M -U -G docker -d /home/ctf ctf
-
-chown ctf:ctf /home/ctf
+chown -R ctf:ctf /home/ctf
