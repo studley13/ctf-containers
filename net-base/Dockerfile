@@ -8,7 +8,7 @@ ENTRYPOINT ["xinetd", "-dontfork"]
 RUN apt-get update
 
 # Install xinetd
-RUN apt-get install -y xinetd
+RUN apt-get install -y xinetd gcc make
 RUN update-rc.d xinetd disable
 ADD xinetd.conf /etc/xinetd.conf
 
@@ -33,4 +33,4 @@ RUN chmod 775 /usr/local/bin/run-service
 RUN ln -s /home/ctf/dummy /usr/local/bin/ctf-service
     
 # Expose the service port
-EXPOSE 9090
+EXPOSE 9091
