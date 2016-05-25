@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Update the name record for this computer
+
+name=`hostname`
+shortname=`hostname -s`
+domain="hackingin.space"
+addr=`dig +short myip.opendns.com @resolver1.opendns.com`
+server="52.64.71.74"
+keydir="/home/ctf-admin/dns"
+key=`ls ${keydir} | grep *.key | sed "s/\(.*\)\.key/\1/"`
+
+printf "\n\
+server ${server}\n\
+zone ${domain}\n\
+yxdomain ${name}\n\
+update del ${name}\n\
+send\n\
+server ${server}\n\
+zone ${domain}\n\
+update add ${name} 600 A ${addr}\n\
+send\n\
+" | nsupdate -k ${keydir}/${key} 2> /dev/null > /dev/null
+
+#!/bin/sh
+# Update the following variables:
+PASSWORD=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+# Should be no need to modify anything beyond this point
+wget --no-check-certificate -qO - "https://dynamicdns.park-your-domain.com/update?host=$shortname&domain=$domain&password=$PASSWORD&ip=$addr" > /dev/null

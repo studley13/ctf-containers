@@ -11,7 +11,7 @@ Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/trusty64"
 
     # Set up the provisioning script
-    config.vm.provision "shell", inline: "cd /vagrant; ./setup.sh"
+    #config.vm.provision "shell", inline: "cd /vagrant; ./setup.sh"
 
     # Set up the 4 boxes
     config.vm.define "box1" do |box1|
@@ -25,6 +25,9 @@ Vagrant.configure(2) do |config|
     end
     config.vm.define "box4" do |box4|
         box4.vm.network "private_network", ip: "172.31.169.30"
+    end
+    config.vm.define "master" do |master|
+        master.vm.network "private_network", ip: "172.31.169.32"
     end
 
     # Set up the machine details
